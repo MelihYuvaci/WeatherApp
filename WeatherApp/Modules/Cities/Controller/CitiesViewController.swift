@@ -52,6 +52,7 @@ extension CitiesViewController : WeatherManagerDelegate {
                     cell.cityLabel.text = weather.cityName
                     cell.conditionImageView.image = UIImage(named: weather.conditionName)
                     cell.tempratureLabel.text = "\(weather.temperatureString)°"
+                    cell.descriptionLabel.text = weather.description
                 }
             }
         }
@@ -80,15 +81,17 @@ extension CitiesViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         //TODO
-        navigationController?.popViewController(animated: true)
-        
+        if let vc = storyboard?.instantiateViewController(identifier: "WeatherViewController") as? WeatherViewController {
+            vc.selectedCity = items[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 //MARK: - UITableViewDataSource
 
 extension CitiesViewController : UITableViewDataSource {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }

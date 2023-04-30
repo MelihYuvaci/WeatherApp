@@ -19,9 +19,11 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var feelsLikeLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var todayLabel: UILabel!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
+    var selectedCity:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +53,17 @@ class WeatherViewController: UIViewController {
     @IBAction func currentLocationPressed(_ sender: UIButton) {
         locationManager.requestLocation()
     }
-    
+}
+
+extension WeatherViewController {
+    func dateFormat() -> String{
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "'Today,' d MMMM"
+        dateFormatter.locale = Locale(identifier: "en_US") // İngilizce olarak ay adını kullanmak için
+        let formattedDate = dateFormatter.string(from: today)
+        return formattedDate
+    }
 }
 
 //MARK: - WeatherManagerDelegate
@@ -66,6 +78,7 @@ extension WeatherViewController: WeatherManagerDelegate{
             self.humidityLabel.text = "\(weather.humidityString)%"
             self.feelsLikeLabel.text = "\(weather.feelsLikeString)°"
             self.windLabel.text = "\(weather.windString) km/h"
+            self.todayLabel.text = self.dateFormat()
         }
     }
     
@@ -86,7 +99,11 @@ extension WeatherViewController:CLLocationManagerDelegate{
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+            if selectedCity != nil  {
+                weatherManager.fetchWeather(cityName: selectedCity ?? "")
+            }else{
+                weatherManager.fetchWeather(latitude: lat, longitude: lon)
+            }
         }
     }
     

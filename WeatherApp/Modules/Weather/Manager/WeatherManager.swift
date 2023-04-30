@@ -59,7 +59,8 @@ struct WeatherManager {
             let feelsLike = decodedData.main.feelsLike
             let wind = decodedData.wind.speed
             let humidity = decodedData.main.humidity
-            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp, feelsLike: feelsLike, wind: wind, humidity: humidity)
+            let description = decodedData.weather[0].description
+            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp, feelsLike: feelsLike, wind: wind, humidity: humidity, description: description)
             return weather
         }catch{
             delegate?.didFailWithError(error: error)

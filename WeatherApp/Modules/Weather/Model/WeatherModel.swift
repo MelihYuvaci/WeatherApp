@@ -27,6 +27,9 @@ struct WeatherModel {
     var humidityString : String {
         return String(format: "%.1f", humidity)
     }
+    
+    let description : String
+    
     var conditionName: String {
         switch conditionId {
         case 200...232:
@@ -44,7 +47,7 @@ struct WeatherModel {
         case 801...804:
             return "cloud.bolt"
         default:
-            return "cloud"
+            return "cloud.fog"
         }
     }
 }

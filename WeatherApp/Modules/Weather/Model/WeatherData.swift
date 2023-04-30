@@ -55,6 +55,7 @@ struct Sys: Codable {
 // MARK: - Weather
 struct Weather: Codable {
     let id: Int
+    let description: String
 }
 
 // MARK: - Wind
