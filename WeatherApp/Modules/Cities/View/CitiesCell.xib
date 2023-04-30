@@ -9,26 +9,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="253" id="KGk-i7-Jjw" customClass="CitiesCell" customModule="WeatherApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="558" height="253"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="260" id="KGk-i7-Jjw" customClass="CitiesCell" customModule="WeatherApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="260"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="558" height="253"/>
+                <rect key="frame" x="0.0" y="0.0" width="444" height="260"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellbg" translatesAutoresizingMaskIntoConstraints="NO" id="9Si-X4-1D8">
-                        <rect key="frame" x="0.0" y="0.0" width="530" height="249"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="530" id="2Na-Uk-7XK"/>
-                            <constraint firstAttribute="height" constant="249" id="OiI-D1-Cx7"/>
-                        </constraints>
-                    </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.drizzle" translatesAutoresizingMaskIntoConstraints="NO" id="UCT-qH-SrG">
-                        <rect key="frame" x="322" y="0.0" width="199" height="161"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="161" id="15W-ov-UUH"/>
-                            <constraint firstAttribute="width" constant="199" id="LyG-2q-xnA"/>
-                        </constraints>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cellbg" translatesAutoresizingMaskIntoConstraints="NO" id="9Si-X4-1D8">
+                        <rect key="frame" x="0.0" y="0.0" width="444" height="260"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0T-SA-Zk1">
                         <rect key="frame" x="58" y="56" width="113" height="88"/>
@@ -40,17 +29,24 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="İzmir" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkd-Fc-MPu">
-                        <rect key="frame" x="83" y="188" width="39.666666666666657" height="20"/>
+                        <rect key="frame" x="83" y="188" width="39.666666666666657" height="31"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mid Rain" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lwu-ls-vTY">
-                        <rect key="frame" x="394.66666666666669" y="187" width="68.333333333333314" height="21"/>
+                        <rect key="frame" x="308.66666666666669" y="187" width="68.333333333333314" height="32"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.drizzle" translatesAutoresizingMaskIntoConstraints="NO" id="UCT-qH-SrG">
+                        <rect key="frame" x="280" y="0.0" width="164" height="144"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="144" id="15W-ov-UUH"/>
+                            <constraint firstAttribute="width" constant="164" id="LyG-2q-xnA"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.043137254901960784" green="0.047058823529411764" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
@@ -63,8 +59,8 @@
                     <constraint firstItem="9Si-X4-1D8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WFg-pr-tWl"/>
                     <constraint firstAttribute="trailing" secondItem="Lwu-ls-vTY" secondAttribute="trailing" constant="67" id="cCI-yr-Yaf"/>
                     <constraint firstAttribute="bottom" secondItem="Lwu-ls-vTY" secondAttribute="bottom" constant="41" id="gfD-j0-OGh"/>
-                    <constraint firstAttribute="trailing" secondItem="UCT-qH-SrG" secondAttribute="trailing" constant="9" id="jrZ-CH-xWG"/>
-                    <constraint firstItem="Lwu-ls-vTY" firstAttribute="top" secondItem="UCT-qH-SrG" secondAttribute="bottom" constant="26" id="nCa-hl-xZI"/>
+                    <constraint firstAttribute="trailing" secondItem="UCT-qH-SrG" secondAttribute="trailing" id="jrZ-CH-xWG"/>
+                    <constraint firstItem="Lwu-ls-vTY" firstAttribute="top" secondItem="UCT-qH-SrG" secondAttribute="bottom" constant="43" id="nCa-hl-xZI"/>
                     <constraint firstAttribute="bottom" secondItem="9Si-X4-1D8" secondAttribute="bottom" id="qat-69-FeO"/>
                     <constraint firstAttribute="trailing" secondItem="9Si-X4-1D8" secondAttribute="trailing" id="xUa-hh-Xrt"/>
                     <constraint firstItem="y0T-SA-Zk1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="38" id="yJ7-eC-tkF"/>
@@ -77,7 +73,7 @@
                 <outlet property="descriptionLabel" destination="Lwu-ls-vTY" id="2sp-Jo-rJ9"/>
                 <outlet property="tempratureLabel" destination="y0T-SA-Zk1" id="u4W-jO-Fpj"/>
             </connections>
-            <point key="canvasLocation" x="213.74045801526717" y="61.619718309859159"/>
+            <point key="canvasLocation" x="114.50381679389312" y="59.859154929577471"/>
         </tableViewCell>
     </objects>
     <resources>

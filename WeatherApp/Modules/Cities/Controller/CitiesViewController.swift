@@ -11,7 +11,8 @@ class CitiesViewController: UIViewController{
     
     
     @IBOutlet weak var tableView: UITableView!
-    private var items = ["Sivas","Kayseri","İzmir"]
+    private var items = ["Manisa","Kayseri","Ankara"]
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,9 @@ class CitiesViewController: UIViewController{
         tableView.register(.init(nibName: "CitiesCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         tableView.delegate = self
         tableView.dataSource = self
+        weatherManager.delegate = self
     }
+    
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Şehir Ekleyin", message: "Hangi Şehirin Hava Durumunu Görmek İstiyorusanız Ekleyiniz", preferredStyle: .alert)
         alertController.addTextField { (textField) in
@@ -41,6 +44,38 @@ class CitiesViewController: UIViewController{
     }
 }
 
+extension CitiesViewController : WeatherManagerDelegate {
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            if let indexPath = self.tableView.indexPathsForVisibleRows?.first(where: { $0.row == self.items.firstIndex(of: weather.cityName) }) {
+                if let cell = self.tableView.cellForRow(at: indexPath) as? CitiesCell {
+                    cell.cityLabel.text = weather.cityName
+                    cell.conditionImageView.image = UIImage(named: weather.conditionName)
+                    cell.tempratureLabel.text = "\(weather.temperatureString)°"
+                }
+            }
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+    
+    
+}
+
+//MARK: - Configure
+
+extension CitiesViewController {
+    func configureCell(_ cell: CitiesCell, indexPath: IndexPath) {
+        let city = items[indexPath.row]
+        cell.cityLabel.text = city
+        weatherManager.fetchWeather(cityName: city)
+    }
+}
+
+//MARK: - UITableViewDelegate
+
 extension CitiesViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -51,14 +86,16 @@ extension CitiesViewController : UITableViewDelegate{
 }
 
 //MARK: - UITableViewDataSource
+
 extension CitiesViewController : UITableViewDataSource {
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! CitiesCell
-        cell.cityLabel.text = items[indexPath.row]
+        configureCell(cell, indexPath: indexPath)
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

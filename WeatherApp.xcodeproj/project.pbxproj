@@ -69,12 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				296B5EFE29FDCAEB00F734C8 /* App */,
-				29DF853229FE83EF00E14BFE /* Model */,
-				29DF853429FE840100E14BFE /* Controller */,
-				29DF853329FE83FA00E14BFE /* View */,
-				296B5EF329FD2AFA00F734C8 /* Assets.xcassets */,
-				296B5EF529FD2AFA00F734C8 /* LaunchScreen.storyboard */,
-				296B5EF829FD2AFA00F734C8 /* Info.plist */,
+				29D56A7F29FF04D10069377C /* Modules */,
+				29D56A8A29FF05E90069377C /* Resource */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -88,33 +84,101 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		29DF853229FE83EF00E14BFE /* Model */ = {
+		29D56A7F29FF04D10069377C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				29DF853529FE843700E14BFE /* WeatherManager.swift */,
+				29D56A8029FF05010069377C /* Weather */,
+				29D56A8129FF050D0069377C /* Cities */,
+				29D56A8929FF05C50069377C /* Storyboards */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		29D56A8029FF05010069377C /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				29D56A8829FF05970069377C /* Manager */,
+				29D56A8229FF052C0069377C /* Model */,
+				29D56A8429FF053D0069377C /* Contoller */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		29D56A8129FF050D0069377C /* Cities */ = {
+			isa = PBXGroup;
+			children = (
+				29D56A8529FF05610069377C /* Model */,
+				29D56A8629FF05670069377C /* View */,
+				29D56A8729FF056C0069377C /* Controller */,
+			);
+			path = Cities;
+			sourceTree = "<group>";
+		};
+		29D56A8229FF052C0069377C /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				29DF853829FE844E00E14BFE /* WeatherData.swift */,
 				29DF853A29FE845F00E14BFE /* WeatherModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		29DF853329FE83FA00E14BFE /* View */ = {
+		29D56A8429FF053D0069377C /* Contoller */ = {
 			isa = PBXGroup;
 			children = (
-				296B5EF029FD2AF900F734C8 /* Main.storyboard */,
+				29DF854129FE85F200E14BFE /* WeatherViewController.swift */,
+			);
+			path = Contoller;
+			sourceTree = "<group>";
+		};
+		29D56A8529FF05610069377C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		29D56A8629FF05670069377C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29DF854329FEAD7300E14BFE /* CitiesCell.swift */,
+				29DF854429FEAD7300E14BFE /* CitiesCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		29DF853429FE840100E14BFE /* Controller */ = {
+		29D56A8729FF056C0069377C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				29DF854129FE85F200E14BFE /* WeatherViewController.swift */,
 				29DF853D29FE850F00E14BFE /* CitiesViewController.swift */,
-				29DF854329FEAD7300E14BFE /* CitiesCell.swift */,
-				29DF854429FEAD7300E14BFE /* CitiesCell.xib */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		29D56A8829FF05970069377C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				29DF853529FE843700E14BFE /* WeatherManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		29D56A8929FF05C50069377C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				296B5EF029FD2AF900F734C8 /* Main.storyboard */,
+				296B5EF529FD2AFA00F734C8 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		29D56A8A29FF05E90069377C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				296B5EF329FD2AFA00F734C8 /* Assets.xcassets */,
+				296B5EF829FD2AFA00F734C8 /* Info.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,7 +409,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q697MV4D34;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -373,7 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q697MV4D34;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
