@@ -19,11 +19,11 @@ struct WeatherManager {
     
     var delegate : WeatherManagerDelegate?
     
-    func fetchWeather(cityName: String){
-        let urlString = "\(weatherURL)&q=\(cityName)"
-        performRequst(with: urlString)
-        print(urlString)
-    }
+//    func fetchWeather(cityName: String){
+//        let urlString = "\(weatherURL)&q=\(cityName)"
+//        performRequst(with: urlString)
+//        print(urlString)
+//    }
     
     func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
         let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
@@ -66,8 +66,10 @@ struct WeatherManager {
             let id = decodedData.weather[0].id
             let temp = decodedData.main.temp
             let name = decodedData.name
-            
-            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
+            let feelsLike = decodedData.main.feelsLike
+            let wind = decodedData.wind.speed
+            let humidity = decodedData.main.humidity
+            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp, feelsLike: feelsLike, wind: wind, humidity: humidity)
             return weather
             //print(weather.temperatureString)
         }catch{

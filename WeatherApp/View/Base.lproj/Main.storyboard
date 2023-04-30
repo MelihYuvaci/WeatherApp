@@ -4,14 +4,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Weather View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeatherViewController" id="BYZ-38-t0r" customClass="WeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,8 +53,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPh-Vy-Vpl">
-                                        <rect key="frame" x="30" y="61" width="35" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPh-Vy-Vpl">
+                                        <rect key="frame" x="0.0" y="61" width="97" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,8 +81,8 @@
                                         <rect key="frame" x="27" y="13" width="43" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8 km/h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kul-pO-omn">
-                                        <rect key="frame" x="23" y="62" width="50" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8 km/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kul-pO-omn">
+                                        <rect key="frame" x="0.0" y="62" width="97" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -176,9 +175,12 @@
                     <connections>
                         <outlet property="cityLabel" destination="SvO-wQ-U1c" id="hFN-ig-ZiJ"/>
                         <outlet property="conditionImageView" destination="2lf-YS-Qgu" id="4Im-Xo-Whd"/>
+                        <outlet property="feelsLikeLabel" destination="WNN-1h-1m2" id="FwE-LQ-noa"/>
                         <outlet property="feelsView" destination="lvo-il-oaw" id="IU3-Ky-h22"/>
+                        <outlet property="humidityLabel" destination="yPh-Vy-Vpl" id="svH-Qg-x87"/>
                         <outlet property="humidityView" destination="w6M-cJ-CQ0" id="HmZ-nM-YKo"/>
                         <outlet property="temperatureLabel" destination="318-2K-IA9" id="qBa-vw-jWM"/>
+                        <outlet property="windLabel" destination="Kul-pO-omn" id="BwH-3W-tGY"/>
                         <outlet property="windView" destination="thu-Ox-plv" id="aer-bz-0mu"/>
                     </connections>
                 </viewController>
@@ -189,26 +191,35 @@
         <!--Cities View Controller-->
         <scene sceneID="ogn-GC-MH2">
             <objects>
-                <viewController id="Mdo-fq-ROp" customClass="CitiesViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CitiesViewController" id="Mdo-fq-ROp" customClass="CitiesViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iXc-Gc-szJ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aIK-Kh-ILy">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aIK-Kh-ILy">
                                 <rect key="frame" x="0.0" y="103" width="393" height="749"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.043137254899999998" green="0.047058823530000002" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OMy-je-TrO"/>
                         <color key="backgroundColor" red="0.043137254901960784" green="0.047058823529411764" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="aIK-Kh-ILy" firstAttribute="leading" secondItem="OMy-je-TrO" secondAttribute="leading" id="CMP-m1-ESw"/>
-                            <constraint firstAttribute="bottom" secondItem="aIK-Kh-ILy" secondAttribute="bottom" id="Hml-yT-hfD"/>
-                            <constraint firstItem="aIK-Kh-ILy" firstAttribute="top" secondItem="OMy-je-TrO" secondAttribute="top" id="b74-z4-MLh"/>
-                            <constraint firstItem="OMy-je-TrO" firstAttribute="trailing" secondItem="aIK-Kh-ILy" secondAttribute="trailing" id="lKJ-yN-oIj"/>
+                            <constraint firstAttribute="bottom" secondItem="aIK-Kh-ILy" secondAttribute="bottom" id="Crg-7S-h21"/>
+                            <constraint firstItem="aIK-Kh-ILy" firstAttribute="trailing" secondItem="OMy-je-TrO" secondAttribute="trailing" id="p0p-zT-icc"/>
+                            <constraint firstItem="aIK-Kh-ILy" firstAttribute="top" secondItem="OMy-je-TrO" secondAttribute="top" id="szG-eO-vAQ"/>
+                            <constraint firstItem="aIK-Kh-ILy" firstAttribute="leading" secondItem="OMy-je-TrO" secondAttribute="leading" id="yB0-10-ZYC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dQa-fl-BEF"/>
+                    <navigationItem key="navigationItem" id="dQa-fl-BEF">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="FrT-ye-05K">
+                            <connections>
+                                <action selector="addButtonClicked:" destination="Mdo-fq-ROp" id="EiN-Wp-woX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="aIK-Kh-ILy" id="pMc-ta-Ucf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvN-cl-h40" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -252,14 +263,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cloud.rain" width="633" height="580"/>
+        <image name="cloud.rain" width="501" height="453"/>
         <image name="feelslike" width="196" height="174"/>
         <image name="hummidty" width="297" height="298"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="location" width="512" height="512"/>
         <image name="wind" width="160" height="160"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

@@ -16,6 +16,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var feelsLikeLabel: UILabel!
+    @IBOutlet weak var windLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
@@ -40,7 +43,9 @@ class WeatherViewController: UIViewController {
     
 
     @IBAction func citiesButtonClicked(_ sender: UIBarButtonItem) {
-
+        if let vc = storyboard?.instantiateViewController(identifier: "CitiesViewController") as? CitiesViewController{
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func currentLocationPressed(_ sender: UIButton) {
@@ -55,9 +60,12 @@ extension WeatherViewController: WeatherManagerDelegate{
     
     func didUpdateWeather(_ weatherManage: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            self.temperatureLabel.text = weather.temperatureString
+            self.temperatureLabel.text = "\(weather.temperatureString)°"
             self.conditionImageView.image = UIImage(named: weather.conditionName)
             self.cityLabel.text = weather.cityName
+            self.humidityLabel.text = "\(weather.humidityString)%"
+            self.feelsLikeLabel.text = "\(weather.feelsLikeString)°"
+            self.windLabel.text = "\(weather.windString) km/h"
         }
     }
     
