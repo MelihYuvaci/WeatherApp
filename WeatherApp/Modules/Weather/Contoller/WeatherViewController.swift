@@ -8,42 +8,36 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController {
-
-    @IBOutlet weak var feelsView: UIView!
-    @IBOutlet weak var windView: UIView!
-    @IBOutlet weak var humidityView: UIView!
-    @IBOutlet weak var conditionImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var feelsLikeLabel: UILabel!
-    @IBOutlet weak var windLabel: UILabel!
-    @IBOutlet weak var humidityLabel: UILabel!
-    @IBOutlet weak var todayLabel: UILabel!
+final class WeatherViewController: UIViewController {
     
-    var weatherManager = WeatherManager()
-    let locationManager = CLLocationManager()
+    //MARK: - Outlets
+    
+    @IBOutlet private weak var feelsView: UIView!
+    @IBOutlet private weak var windView: UIView!
+    @IBOutlet private weak var humidityView: UIView!
+    @IBOutlet private weak var conditionImageView: UIImageView!
+    @IBOutlet private weak var temperatureLabel: UILabel!
+    @IBOutlet private weak var cityLabel: UILabel!
+    @IBOutlet private weak var feelsLikeLabel: UILabel!
+    @IBOutlet private weak var windLabel: UILabel!
+    @IBOutlet private weak var humidityLabel: UILabel!
+    @IBOutlet private weak var todayLabel: UILabel!
+    
+    //MARK: - Properties
+    
+    private var weatherManager = WeatherManager()
+    private let locationManager = CLLocationManager()
     var selectedCity:String?
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        feelsView.layer.cornerRadius = 20.0 // Köşe yarıçapını belirleyin
-        feelsView.clipsToBounds = true
-        
-        windView.layer.cornerRadius = 20.0 // Köşe yarıçapını belirleyin
-        windView.clipsToBounds = true
-        
-        humidityView.layer.cornerRadius = 20.0 // Köşe yarıçapını belirleyin
-        humidityView.clipsToBounds = true
-
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        
-        weatherManager.delegate = self
+        configure()
     }
     
-
+    //MARK: - Action
+    
     @IBAction func citiesButtonClicked(_ sender: UIBarButtonItem) {
         if let vc = storyboard?.instantiateViewController(identifier: "CitiesViewController") as? CitiesViewController{
             navigationController?.pushViewController(vc, animated: true)
@@ -55,7 +49,25 @@ class WeatherViewController: UIViewController {
     }
 }
 
+//MARK: - Configure
+
 extension WeatherViewController {
+    
+    func configure (){
+        feelsView.layer.cornerRadius = 20.0
+        feelsView.clipsToBounds = true
+        windView.layer.cornerRadius = 20.0
+        windView.clipsToBounds = true
+        humidityView.layer.cornerRadius = 20.0
+        humidityView.clipsToBounds = true
+
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
+        weatherManager.delegate = self
+    }
+    
     func dateFormat() -> String{
         let today = Date()
         let dateFormatter = DateFormatter()
@@ -112,4 +124,4 @@ extension WeatherViewController:CLLocationManagerDelegate{
     }
     
 }
- 
+

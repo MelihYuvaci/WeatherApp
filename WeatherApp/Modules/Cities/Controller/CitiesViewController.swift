@@ -7,21 +7,25 @@
 
 import UIKit
 
-class CitiesViewController: UIViewController{
+final class CitiesViewController: UIViewController{
     
+    //MARK: - Outlet
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
+    
+    //MARK: - Properties
+    
     private var items = ["Mersin","Ankara","Rize"]
-    var weatherManager = WeatherManager()
+    private var weatherManager = WeatherManager()
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(.init(nibName: "CitiesCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        weatherManager.delegate = self
+       configure()
     }
+    
+    //MARK: - Actions
     
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Şehir Ekleyin", message: "Hangi Şehirin Hava Durumunu Görmek İstiyorusanız Ekleyiniz", preferredStyle: .alert)
@@ -43,17 +47,34 @@ class CitiesViewController: UIViewController{
         present(alertController, animated: true, completion: nil)
     }
 }
+//MARK: - Configure
+
+extension CitiesViewController {
+   private func configure(){
+        tableView.register(.init(nibName: "CitiesCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        weatherManager.delegate = self
+    }
+    
+    private func configureCell(_ cell: CitiesCell, indexPath: IndexPath) {
+        let city = items[indexPath.row]
+        cell.cityLabel.text = city
+        weatherManager.fetchWeather(cityName: city)
+    }
+}
+
+//MARK: - WeatherManagerDelegate
 
 extension CitiesViewController : WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
             if let indexPath = self.tableView.indexPathsForVisibleRows?.first(where: { $0.row == self.items.firstIndex(of: weather.cityName) }) {
-                if let cell = self.tableView.cellForRow(at: indexPath) as? CitiesCell {
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? CitiesCell else { return }
                     cell.cityLabel.text = weather.cityName
                     cell.conditionImageView.image = UIImage(named: weather.conditionName)
                     cell.tempratureLabel.text = "\(weather.temperatureString)°"
                     cell.descriptionLabel.text = weather.description
-                }
             }
         }
     }
@@ -61,46 +82,34 @@ extension CitiesViewController : WeatherManagerDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    
 }
 
-//MARK: - Configure
 
-extension CitiesViewController {
-    func configureCell(_ cell: CitiesCell, indexPath: IndexPath) {
-        let city = items[indexPath.row]
-        cell.cityLabel.text = city
-        weatherManager.fetchWeather(cityName: city)
-    }
-}
 
 //MARK: - UITableViewDelegate
 
 extension CitiesViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //TODO
-        if let vc = storyboard?.instantiateViewController(identifier: "WeatherViewController") as? WeatherViewController {
+        guard let vc = storyboard?.instantiateViewController(identifier: "WeatherViewController") as? WeatherViewController else { return }
             vc.selectedCity = items[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
-        }
     }
 }
 
 //MARK: - UITableViewDataSource
 
 extension CitiesViewController : UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! CitiesCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as? CitiesCell else { return UITableViewCell() }
         configureCell(cell, indexPath: indexPath)
         return cell
     }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             let alertController = UIAlertController(title: "Delete?", message: "Are you want to delete this city", preferredStyle: .alert)
@@ -112,5 +121,4 @@ extension CitiesViewController : UITableViewDataSource {
             present(alertController, animated: true)
         }
     }
-    
 }
