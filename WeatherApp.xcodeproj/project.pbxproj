@@ -107,7 +107,6 @@
 		29D56A8129FF050D0069377C /* Cities */ = {
 			isa = PBXGroup;
 			children = (
-				29D56A8529FF05610069377C /* Model */,
 				29D56A8629FF05670069377C /* View */,
 				29D56A8729FF056C0069377C /* Controller */,
 			);
@@ -129,13 +128,6 @@
 				29DF854129FE85F200E14BFE /* WeatherViewController.swift */,
 			);
 			path = Contoller;
-			sourceTree = "<group>";
-		};
-		29D56A8529FF05610069377C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		29D56A8629FF05670069377C /* View */ = {

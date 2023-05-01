@@ -11,7 +11,7 @@ class CitiesViewController: UIViewController{
     
     
     @IBOutlet weak var tableView: UITableView!
-    private var items = ["Manisa","Kayseri","Ankara"]
+    private var items = ["Mersin","Ankara","Rize"]
     var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
