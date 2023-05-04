@@ -9,11 +9,20 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.badge, .alert, .sound, .carPlay]
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        center.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                self.center.requestAuthorization(options: self.options) { (accepted, error) in
+                    if !accepted {
+                        print("Error")
+                    }
+                }
+            }
+        }
         return true
     }
 

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import UserNotifications
+
 
 final class CitiesViewController: UIViewController{
     
@@ -17,12 +19,14 @@ final class CitiesViewController: UIViewController{
     
     private var items = ["Mersin","Ankara","Rize"]
     private var weatherManager = WeatherManager()
+    private let center = UNUserNotificationCenter.current()
+    
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       configure()
+        configure()
     }
     
     //MARK: - Actions
@@ -40,6 +44,7 @@ final class CitiesViewController: UIViewController{
                 self.items.append(text)
                 self.tableView.reloadData()
                 print("Eklendi: \(text)")
+                self.createNotfications(city: text)
             }
         }
         alertController.addAction(cancelAction)
@@ -50,17 +55,50 @@ final class CitiesViewController: UIViewController{
 //MARK: - Configure
 
 extension CitiesViewController {
-   private func configure(){
+    private func configure(){
         tableView.register(.init(nibName: "CitiesCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
         tableView.delegate = self
         tableView.dataSource = self
         weatherManager.delegate = self
+        center.delegate = self
     }
     
     private func configureCell(_ cell: CitiesCell, indexPath: IndexPath) {
         let city = items[indexPath.row]
         cell.cityLabel.text = city
         weatherManager.fetchWeather(cityName: city)
+    }
+    private func createNotfications(city: String) {
+        // CONTENT
+        let content = UNMutableNotificationContent()
+        content.title = "Şehir Eklendi ✅"
+        content.body = "\(city) hava durumlarınızın arasına eklendi detayları için şehrinize tıklayabilirsiniz 🎊"
+        content.sound = UNNotificationSound.default
+        
+        // TRIGGER
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.4, repeats: false)
+        
+        // CUSTOM ACTIONS
+        
+        // Define Action
+        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
+        
+        // Create Category
+        let category = UNNotificationCategory(identifier: "MyNotificationsCategory", actions: [snoozeAction, deleteAction], intentIdentifiers: [], options: [])
+        
+        // Register Category
+        center.setNotificationCategories([category])
+        content.categoryIdentifier =  "MyNotificationsCategory"
+        
+        // REQUEST
+        let identifier = "FirstUserNotification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        center.add(request) { (error) in
+            if error != nil {
+                print("Something wrong")
+            }
+        }
     }
 }
 
@@ -71,10 +109,10 @@ extension CitiesViewController : WeatherManagerDelegate {
         DispatchQueue.main.async {
             if let indexPath = self.tableView.indexPathsForVisibleRows?.first(where: { $0.row == self.items.firstIndex(of: weather.cityName) }) {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? CitiesCell else { return }
-                    cell.cityLabel.text = weather.cityName
-                    cell.conditionImageView.image = UIImage(named: weather.conditionName)
-                    cell.tempratureLabel.text = "\(weather.temperatureString)°"
-                    cell.descriptionLabel.text = weather.description
+                cell.cityLabel.text = weather.cityName
+                cell.conditionImageView.image = UIImage(named: weather.conditionName)
+                cell.tempratureLabel.text = "\(weather.temperatureString)°"
+                cell.descriptionLabel.text = weather.description
             }
         }
     }
@@ -92,8 +130,8 @@ extension CitiesViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let vc = storyboard?.instantiateViewController(identifier: "WeatherViewController") as? WeatherViewController else { return }
-            vc.selectedCity = items[indexPath.row]
-            navigationController?.pushViewController(vc, animated: true)
+        vc.selectedCity = items[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -120,5 +158,17 @@ extension CitiesViewController : UITableViewDataSource {
             }))
             present(alertController, animated: true)
         }
+    }
+}
+
+//MARK: - UNUserNotificationCenterDelegate
+
+extension CitiesViewController : UNUserNotificationCenterDelegate{
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
     }
 }
